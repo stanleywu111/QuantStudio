@@ -71,15 +71,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Code\TeaFiles.Cpp\TeaFiles;D:\boost\boost_1_63_0;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost\boost_1_63_0\stage\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Code\TeaFiles.Cpp\TeaFiles;D:\boost\boost_1_63_0;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost\boost_1_63_0\stage\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Code\TeaFiles.Cpp\TeaFiles;D:\boost\boost_1_63_0;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost\boost_1_63_0\stage\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Code\TeaFiles.Cpp\TeaFiles;D:\boost\boost_1_63_0;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost\boost_1_63_0\stage\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -146,6 +154,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\TeaFiles.Cpp\Bin\TeaFiles32d.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
