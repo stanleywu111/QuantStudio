@@ -2,7 +2,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <IO.h>
 #include <Description.h>
 #include <File.h>

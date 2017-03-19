@@ -159,6 +159,22 @@
   <ItemGroup>
     <Library Include="..\..\TeaFiles.Cpp\Bin\TeaFiles32d.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\disruptor--\disruptor\claim_strategy.h" />
+    <ClInclude Include="..\..\disruptor--\disruptor\ring_buffer.h" />
+    <ClInclude Include="..\..\disruptor--\disruptor\sequence.h" />
+    <ClInclude Include="..\..\disruptor--\disruptor\sequencer.h" />
+    <ClInclude Include="..\..\disruptor--\disruptor\sequence_barrier.h" />
+    <ClInclude Include="..\..\disruptor--\disruptor\utils.h" />
+    <ClInclude Include="..\..\disruptor--\disruptor\wait_strategy.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventBusManager.h" />
+    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="MultiEventProcessor.h" />
+    <ClInclude Include="performance.h" />
+    <ClInclude Include="portfolio.h" />
+    <ClInclude Include="Strategy.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

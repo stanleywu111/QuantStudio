@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\core">
+      <UniqueIdentifier>{13f26697-3db4-4b41-a60a-dcd248444835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\common">
+      <UniqueIdentifier>{df0eaa76-2360-4879-83a9-d46f4bea9816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\disruptor">
+      <UniqueIdentifier>{c31dddbe-f021-4094-a1ed-729e67d185c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -23,5 +32,49 @@
     <Library Include="..\..\TeaFiles.Cpp\Bin\TeaFiles32d.lib">
       <Filter>资源文件</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="portfolio.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="performance.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>头文件\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>头文件\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiEventProcessor.h">
+      <Filter>头文件\common</Filter>
+    </ClInclude>
+    <ClInclude Include="EventBusManager.h">
+      <Filter>头文件\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\wait_strategy.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\claim_strategy.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\ring_buffer.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\sequence.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\sequence_barrier.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\sequencer.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\disruptor--\disruptor\utils.h">
+      <Filter>头文件\disruptor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
