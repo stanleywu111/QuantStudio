@@ -55,25 +55,25 @@
     <ClInclude Include="EventBusManager.h">
       <Filter>头文件\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\wait_strategy.h">
+    <ClInclude Include="claim_strategy.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\claim_strategy.h">
+    <ClInclude Include="ring_buffer.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\ring_buffer.h">
+    <ClInclude Include="sequence_barrier.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\sequence.h">
+    <ClInclude Include="sequence.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\sequence_barrier.h">
+    <ClInclude Include="sequencer.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\sequencer.h">
+    <ClInclude Include="utils.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\disruptor--\disruptor\utils.h">
+    <ClInclude Include="wait_strategy.h">
       <Filter>头文件\disruptor</Filter>
     </ClInclude>
   </ItemGroup>

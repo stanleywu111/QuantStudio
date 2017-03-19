@@ -8,6 +8,16 @@
 
 using teatime::TeaFile;
 
+#include <time.h>
+
+#include <exception>
+#include <functional>
+#include <iostream>
+#include <memory>
+#include <thread>
+
+
+
 
 struct Tick
 {
@@ -19,7 +29,7 @@ struct Tick
 
 int main()
 {
-	std::ifstream file("test.csv");
+	/*std::ifstream file("test.csv");
 	std::string line;
 
 	auto tf = TeaFile<Tick>::Create("test.tea");
@@ -45,7 +55,7 @@ int main()
 	auto items = rtf->OpenReadableMapping();
 
 	for (Tick *t = items->begin(); t != items->end(); ++t)
-		std::cout << t->a << std::endl;
+		std::cout << t->a << std::endl;*/
 
-	return 0;
+
 }
