@@ -28,66 +28,54 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DISRUPTOR4CPP_SEQUENCE_H_
-#define DISRUPTOR4CPP_SEQUENCE_H_
+#ifndef DISRUPTOR4CPP_FIXED_SEQUENCE_GROUP_H_
+#define DISRUPTOR4CPP_FIXED_SEQUENCE_GROUP_H_
 
-#include <atomic>
+#include <climits>
 #include <cstdint>
+#include <vector>
 
-#include "cache_line_storage.h"
+#include "sequence.h"
+#include "util.h"
 
 namespace disruptor4cpp
 {
-	class sequence
+	template <typename TSequence = sequence>
+	class fixed_sequence_group
 	{
 	public:
-		static constexpr int64_t INITIAL_VALUE = -1;
-
-		sequence()
-			: sequence_(INITIAL_VALUE)
+		static fixed_sequence_group<TSequence> create(const std::vector<const TSequence*>& sequences)
 		{
+			fixed_sequence_group<TSequence> group;
+			group.sequences_.insert(group.sequences_.begin(), sequences.begin(), sequences.end());
+			return group;
 		}
 
-		explicit sequence(int64_t initial_value)
-			: sequence_(initial_value)
+		static fixed_sequence_group<TSequence> create(const std::vector<TSequence*>& sequences)
 		{
+			fixed_sequence_group<TSequence> group;
+			group.sequences_.insert(group.sequences_.begin(), sequences.begin(), sequences.end());
+			return group;
 		}
 
-		~sequence() = default;
+		static fixed_sequence_group<TSequence> create(const TSequence& sequence)
+		{
+			fixed_sequence_group<TSequence> group;
+			group.sequences_.push_back(&sequence);
+			return group;
+		}
+
+		fixed_sequence_group() = default;
+		~fixed_sequence_group() = default;
 
 		int64_t get() const
 		{
-			return sequence_.load(std::memory_order_acquire);
-		}
-
-		void set(int64_t value)
-		{
-			sequence_.store(value, std::memory_order_release);
-		}
-
-		bool compare_and_set(int64_t expected_value, int64_t new_value)
-		{
-			return sequence_.compare_exchange_weak(expected_value, new_value);
-		}
-
-		int64_t increment_and_get()
-		{
-			return add_and_get(1);
-		}
-
-		int64_t add_and_get(int64_t increment)
-		{
-			return sequence_.fetch_add(increment, std::memory_order_release) + increment;
+			return sequences_.size() == 1 ? sequences_[0]->get()
+				: util::get_minimum_sequence(sequences_);
 		}
 
 	private:
-		sequence(const sequence&) = delete;
-		sequence& operator=(const sequence&) = delete;
-		sequence(sequence&&) = delete;
-		sequence& operator=(sequence&&) = delete;
-
-		alignas(CACHE_LINE_SIZE)std::atomic<int64_t> sequence_;
-		char padding[CACHE_LINE_SIZE - sizeof(std::atomic<int64_t>)];
+		std::vector<const TSequence*> sequences_;
 	};
 }
 

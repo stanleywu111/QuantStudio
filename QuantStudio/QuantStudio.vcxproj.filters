@@ -19,8 +19,17 @@
     <Filter Include="头文件\common">
       <UniqueIdentifier>{df0eaa76-2360-4879-83a9-d46f4bea9816}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\disruptor">
-      <UniqueIdentifier>{c31dddbe-f021-4094-a1ed-729e67d185c1}</UniqueIdentifier>
+    <Filter Include="头文件\disruptor4cpp">
+      <UniqueIdentifier>{c50ab71e-68da-4724-a151-e9d144ca7058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\disruptor4cpp\exceptions">
+      <UniqueIdentifier>{be24c14f-cb5a-4ebf-a6c4-056c7d67d1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\disruptor4cpp\utils">
+      <UniqueIdentifier>{6da21f69-c38e-4a2b-83a8-cd2be97aacec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\disruptor4cpp\wait_strategies">
+      <UniqueIdentifier>{0767c464-0e04-4543-bba9-4e6e2799a637}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,12 +43,6 @@
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="portfolio.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
-    <ClInclude Include="performance.h">
-      <Filter>头文件\core</Filter>
-    </ClInclude>
     <ClInclude Include="EventHandler.h">
       <Filter>头文件\common</Filter>
     </ClInclude>
@@ -55,26 +58,83 @@
     <ClInclude Include="EventBusManager.h">
       <Filter>头文件\common</Filter>
     </ClInclude>
-    <ClInclude Include="claim_strategy.h">
-      <Filter>头文件\disruptor</Filter>
+    <ClInclude Include="Performance.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Portfolio.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="batch_event_processor.h">
+      <Filter>头文件\disruptor4cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="disruptor4cpp.h">
+      <Filter>头文件\disruptor4cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="event_handler.h">
+      <Filter>头文件\disruptor4cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="fixed_sequence_group.h">
+      <Filter>头文件\disruptor4cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="multi_producer_sequencer.h">
+      <Filter>头文件\disruptor4cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="no_op_event_processor.h">
+      <Filter>头文件\disruptor4cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="producer_type.h">
+      <Filter>头文件\disruptor4cpp</Filter>
     </ClInclude>
     <ClInclude Include="ring_buffer.h">
-      <Filter>头文件\disruptor</Filter>
+      <Filter>头文件\disruptor4cpp</Filter>
     </ClInclude>
     <ClInclude Include="sequence_barrier.h">
-      <Filter>头文件\disruptor</Filter>
+      <Filter>头文件\disruptor4cpp</Filter>
     </ClInclude>
     <ClInclude Include="sequence.h">
-      <Filter>头文件\disruptor</Filter>
+      <Filter>头文件\disruptor4cpp</Filter>
     </ClInclude>
-    <ClInclude Include="sequencer.h">
-      <Filter>头文件\disruptor</Filter>
+    <ClInclude Include="sequencer_traits.h">
+      <Filter>头文件\disruptor4cpp</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>头文件\disruptor</Filter>
+    <ClInclude Include="single_producer_sequencer.h">
+      <Filter>头文件\disruptor4cpp</Filter>
     </ClInclude>
-    <ClInclude Include="wait_strategy.h">
-      <Filter>头文件\disruptor</Filter>
+    <ClInclude Include="alert_exception.h">
+      <Filter>头文件\disruptor4cpp\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="insufficient_capacity_exception.h">
+      <Filter>头文件\disruptor4cpp\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="timeout_exception.h">
+      <Filter>头文件\disruptor4cpp\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="cache_line_storage.h">
+      <Filter>头文件\disruptor4cpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>头文件\disruptor4cpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="blocking_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="busy_spin_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="lite_blocking_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="phased_backoff_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="sleeping_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="timeout_blocking_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="yielding_wait_strategy.h">
+      <Filter>头文件\disruptor4cpp\wait_strategies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

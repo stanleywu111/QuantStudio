@@ -160,20 +160,37 @@
     <Library Include="..\..\TeaFiles.Cpp\Bin\TeaFiles32d.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="claim_strategy.h" />
+    <ClInclude Include="alert_exception.h" />
+    <ClInclude Include="batch_event_processor.h" />
+    <ClInclude Include="blocking_wait_strategy.h" />
+    <ClInclude Include="busy_spin_wait_strategy.h" />
+    <ClInclude Include="cache_line_storage.h" />
+    <ClInclude Include="disruptor4cpp.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventBusManager.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="event_handler.h" />
+    <ClInclude Include="fixed_sequence_group.h" />
+    <ClInclude Include="insufficient_capacity_exception.h" />
+    <ClInclude Include="lite_blocking_wait_strategy.h" />
     <ClInclude Include="MultiEventProcessor.h" />
-    <ClInclude Include="performance.h" />
-    <ClInclude Include="portfolio.h" />
+    <ClInclude Include="multi_producer_sequencer.h" />
+    <ClInclude Include="no_op_event_processor.h" />
+    <ClInclude Include="Performance.h" />
+    <ClInclude Include="phased_backoff_wait_strategy.h" />
+    <ClInclude Include="Portfolio.h" />
+    <ClInclude Include="producer_type.h" />
     <ClInclude Include="ring_buffer.h" />
     <ClInclude Include="sequence.h" />
-    <ClInclude Include="sequencer.h" />
+    <ClInclude Include="sequencer_traits.h" />
     <ClInclude Include="sequence_barrier.h" />
+    <ClInclude Include="single_producer_sequencer.h" />
+    <ClInclude Include="sleeping_wait_strategy.h" />
     <ClInclude Include="Strategy.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="wait_strategy.h" />
+    <ClInclude Include="timeout_blocking_wait_strategy.h" />
+    <ClInclude Include="timeout_exception.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="yielding_wait_strategy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

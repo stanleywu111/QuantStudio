@@ -28,65 +28,44 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DISRUPTOR4CPP_RING_BUFFER_H_
-#define DISRUPTOR4CPP_RING_BUFFER_H_
+#ifndef DISRUPTOR4CPP_SEQUENCER_TRAITS_H_
+#define DISRUPTOR4CPP_SEQUENCER_TRAITS_H_
 
 #include <cstddef>
-#include <cstdint>
-#include <type_traits>
 
+#include "multi_producer_sequencer.h"
 #include "producer_type.h"
-#include "sequencer_traits.h"
-#include "cache_line_storage.h"
+#include "sequence_barrier.h"
+#include "single_producer_sequencer.h"
 
 namespace disruptor4cpp
 {
-	template <typename TEvent, std::size_t BufferSize,
-		typename TWaitStrategy, producer_type ProducerType, typename TSequence = sequence>
-		class ring_buffer :
-		public sequencer_traits<BufferSize, TWaitStrategy, TSequence, ProducerType>::sequencer_type
-	{
-	public:
-		static_assert(std::is_default_constructible<TEvent>::value, "Event type must be default constructible");
-		static_assert((BufferSize & (~BufferSize + 1)) == BufferSize, "Ring buffer size must be a power of 2");
+	template <std::size_t BufferSize, typename TWaitStrategy, typename TSequence
+		, producer_type ProducerType>
+		struct sequencer_traits;
 
-		typedef TEvent event_type;
+	template <std::size_t BufferSize, typename TWaitStrategy, typename TSequence>
+	struct sequencer_traits<BufferSize, TWaitStrategy, TSequence, producer_type::single>
+	{
 		typedef TWaitStrategy wait_strategy_type;
 		typedef TSequence sequence_type;
-		typedef typename sequencer_traits<BufferSize, TWaitStrategy, TSequence, ProducerType>::sequence_barrier_type sequence_barrier_type;
+		typedef single_producer_sequencer<BufferSize, TWaitStrategy, TSequence> sequencer_type;
+		typedef sequence_barrier<sequencer_type> sequence_barrier_type;
 
 		static constexpr std::size_t BUFFER_SIZE = BufferSize;
-		static constexpr producer_type PRODUCER_TYPE = ProducerType;
+		static constexpr producer_type PRODUCER_TYPE = producer_type::single;
+	};
 
-		ring_buffer() = default;
+	template <std::size_t BufferSize, typename TWaitStrategy, typename TSequence>
+	struct sequencer_traits<BufferSize, TWaitStrategy, TSequence, producer_type::multi>
+	{
+		typedef TWaitStrategy wait_strategy_type;
+		typedef TSequence sequence_type;
+		typedef multi_producer_sequencer<BufferSize, TWaitStrategy, TSequence> sequencer_type;
+		typedef sequence_barrier<sequencer_type> sequence_barrier_type;
 
-		explicit ring_buffer(const TEvent& value)
-		{
-			for (int i = 0; i < BufferSize; i++)
-			{
-				events_[i].data = value;
-			}
-		}
-
-		~ring_buffer() = default;
-
-		TEvent& operator[](int64_t seq)
-		{
-			return events_[seq & (BufferSize - 1)].data;
-		}
-
-		const TEvent& operator[](int64_t seq) const
-		{
-			return events_[seq & (BufferSize - 1)].data;
-		}
-
-	private:
-		ring_buffer(const ring_buffer&) = delete;
-		ring_buffer& operator=(const ring_buffer&) = delete;
-		ring_buffer(ring_buffer&&) = delete;
-		ring_buffer& operator=(ring_buffer&&) = delete;
-
-		cache_line_storage<TEvent> events_[BufferSize];
+		static constexpr std::size_t BUFFER_SIZE = BufferSize;
+		static constexpr producer_type PRODUCER_TYPE = producer_type::multi;
 	};
 }
 

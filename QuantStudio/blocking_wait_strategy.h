@@ -28,66 +28,60 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DISRUPTOR4CPP_SEQUENCE_H_
-#define DISRUPTOR4CPP_SEQUENCE_H_
+#ifndef DISRUPTOR4CPP_WAIT_STRATEGIES_BLOCKING_WAIT_STRATEGY_H_
+#define DISRUPTOR4CPP_WAIT_STRATEGIES_BLOCKING_WAIT_STRATEGY_H_
 
-#include <atomic>
+#include <condition_variable>
 #include <cstdint>
+#include <mutex>
 
-#include "cache_line_storage.h"
+#include "fixed_sequence_group.h"
 
 namespace disruptor4cpp
 {
-	class sequence
+	class blocking_wait_strategy
 	{
 	public:
-		static constexpr int64_t INITIAL_VALUE = -1;
+		blocking_wait_strategy() = default;
+		~blocking_wait_strategy() = default;
 
-		sequence()
-			: sequence_(INITIAL_VALUE)
+		template <typename TSequenceBarrier, typename TSequence>
+		int64_t wait_for(int64_t seq, const TSequence& cursor_sequence,
+			const fixed_sequence_group<TSequence>& dependent_sequence,
+			const TSequenceBarrier& seq_barrier)
 		{
+			int64_t available_sequence = 0;
+			if ((available_sequence = cursor_sequence.get()) < seq)
+			{
+				std::unique_lock<std::recursive_mutex> lock(mutex_);
+				while ((available_sequence = cursor_sequence.get()) < seq)
+				{
+					seq_barrier.check_alert();
+					processor_notify_condition_.wait(lock);
+				}
+			}
+
+			while ((available_sequence = dependent_sequence.get()) < seq)
+			{
+				seq_barrier.check_alert();
+			}
+			return available_sequence;
 		}
 
-		explicit sequence(int64_t initial_value)
-			: sequence_(initial_value)
+		void signal_all_when_blocking()
 		{
-		}
-
-		~sequence() = default;
-
-		int64_t get() const
-		{
-			return sequence_.load(std::memory_order_acquire);
-		}
-
-		void set(int64_t value)
-		{
-			sequence_.store(value, std::memory_order_release);
-		}
-
-		bool compare_and_set(int64_t expected_value, int64_t new_value)
-		{
-			return sequence_.compare_exchange_weak(expected_value, new_value);
-		}
-
-		int64_t increment_and_get()
-		{
-			return add_and_get(1);
-		}
-
-		int64_t add_and_get(int64_t increment)
-		{
-			return sequence_.fetch_add(increment, std::memory_order_release) + increment;
+			std::lock_guard<std::recursive_mutex> lock(mutex_);
+			processor_notify_condition_.notify_all();
 		}
 
 	private:
-		sequence(const sequence&) = delete;
-		sequence& operator=(const sequence&) = delete;
-		sequence(sequence&&) = delete;
-		sequence& operator=(sequence&&) = delete;
+		blocking_wait_strategy(const blocking_wait_strategy&) = delete;
+		blocking_wait_strategy& operator=(const blocking_wait_strategy&) = delete;
+		blocking_wait_strategy(blocking_wait_strategy&&) = delete;
+		blocking_wait_strategy& operator=(blocking_wait_strategy&&) = delete;
 
-		alignas(CACHE_LINE_SIZE)std::atomic<int64_t> sequence_;
-		char padding[CACHE_LINE_SIZE - sizeof(std::atomic<int64_t>)];
+		std::recursive_mutex mutex_;
+		std::condition_variable_any processor_notify_condition_;
 	};
 }
 

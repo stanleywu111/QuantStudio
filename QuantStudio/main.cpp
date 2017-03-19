@@ -8,16 +8,6 @@
 
 using teatime::TeaFile;
 
-#include <time.h>
-
-#include <exception>
-#include <functional>
-#include <iostream>
-#include <memory>
-#include <thread>
-
-
-
 
 struct Tick
 {
